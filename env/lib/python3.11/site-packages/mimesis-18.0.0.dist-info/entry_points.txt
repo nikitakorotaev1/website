@@ -1,0 +1,6 @@
+[pytest11]
+mimesis=mimesis.plugins.pytest
+
+[pytest_randomly.random_seeder]
+mimesis=mimesis.entrypoints:pytest_randomly_reseed
+

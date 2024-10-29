@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Добавление поста{% endblock %}
+
+
+{% block content %}
+<form method="post" class="form-control">
+    <input name="title" type="text" placeholder="Название проекта" class="form-control">
+    <textarea name="content" placeholder="Описание" class="form-control" rows="5" required></textarea>
+    <input name="image_url" type="text" placeholder="URL изображения" class="form-control">
+    <input name="video_url" type="text" placeholder="URL видео" class="form-control">
+
+    <input value="Добавить" type="submit" class="btn btn-success">
+</form>
+{% endblock %}
