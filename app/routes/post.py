@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
+from flask_login import login_required
+
 from ..extensions import db
 from ..models.post import Post
 
@@ -11,7 +13,9 @@ def all():
 
 
 # Функция создания поста на сайте
+
 @post.route('/post/create', methods=['POST', 'GET'])
+@login_required
 def create():
     if request.method == 'POST':
         title = request.form.get('title')

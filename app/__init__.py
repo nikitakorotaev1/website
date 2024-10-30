@@ -1,5 +1,8 @@
 from flask import Flask
+from flask_login import login_required
 
+from .extensions import login_manager
+from .routes.user import user_routes
 from .extensions import db, migrate
 from .config import Config
 
@@ -18,12 +21,20 @@ def create_app(config_class=Config):
 
     # app.register_blueprint(user)
     app.register_blueprint(post)
+    app.register_blueprint(user_routes)
 
 
     db.init_app(app)
     migrate.init_app(app, db)
+    login_manager.init_app(app)
+
+    #Login Manager
+    login_manager.login_view = 'user_routes.login'
+    login_manager.login_message = 'Требуется авторизация'
+    login_manager.login_message_category = 'info'
 
    # Создание панели управления через flask-admin
+
 
     admin = Admin(app, name='Панель Управления', template_mode='bootstrap3', index_view=DashboardView(), endpoint='admin')
     admin.add_view(ModelView(Role, db.session, name='Роль'))

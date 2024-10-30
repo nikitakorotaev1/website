@@ -7,13 +7,21 @@
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="#" class="nav-link px-2 link-secondary">Главная</a></li>
-        <li><a href="{{ url_for('post.create')}}" class="nav-link px-2">Добавить запись</a></li>
-        <li><a href="{{ url_for('admin.index')}}" class="nav-link px-2">Управление</a></li>
+          {% if current_user.is_authenticated %}
+           <li><a href="{{ url_for('post.create')}}" class="nav-link px-2">Добавить запись</a></li>
+           <li><a href="{{ url_for('admin.index')}}" class="nav-link px-2">Управление</a></li>
+          {% endif %}
       </ul>
 
     <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+          {% if current_user.is_authenticated %}
+           <span>Добро пожаловать, {{ current_user.name }}</span>
+           <a href="{{ url_for('user_routes.logout')}}" class="btn btn-warning">Выйти</a>
+          {% else %}
+           <a href="{{ url_for('user_routes.login')}}" class="btn btn-warning">Войти</a>
+           <a href="{{ url_for('user_routes.register')}}" class="btn btn-warning">Регистрация</a>
+          {% endif %}
+
       </div>
 
 </header>

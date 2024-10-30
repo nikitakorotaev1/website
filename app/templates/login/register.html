@@ -1,1 +1,22 @@
-{% extends base.html %}
+{% extends 'main/base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data" class="form-control d-flex flex-column gap-2">
+      {{ form.csrf_token }}
+      {{ form.email(class="form-control", placeholder="Почта")}}
+
+      {{ form.name(class="form-control", placeholder="Логин") }}
+      {% if form.name.errors %}
+          <div class="invalid-feedback"></div>
+          {% for error in form.name.errors %}
+                <span>{{ error }}</span>
+          {% endfor %}
+      {% endif %}
+
+      {{ form.password(class="form-control", placeholder="Пароль") }}
+      {{ form.confirm_password(class="form-control", placeholder="Подтвердите пароль") }}
+      {{ form.submit(class="btn btn-success") }}
+  </form>
+{% endblock %}

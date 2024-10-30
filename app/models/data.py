@@ -2,8 +2,11 @@ from email.policy import default
 
 from click import Tuple
 
-from ..extensions import db
+from ..extensions import db, login_manager
 from datetime import datetime
+from flask_login import UserMixin
+
+
 
 class Role(db.Model):
     __tablename__ = 'role'
@@ -12,7 +15,7 @@ class Role(db.Model):
     title = db.Column(db.String(250), nullable=False)
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
