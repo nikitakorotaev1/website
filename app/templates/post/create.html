@@ -4,6 +4,7 @@
 
 
 {% block content %}
+<h1>{{ self.title() }}</h1>
 <form method="post" class="form-control">
     <input name="title" type="text" placeholder="Название проекта" class="form-control">
     <textarea name="content" placeholder="Описание" class="form-control" rows="5" required></textarea>

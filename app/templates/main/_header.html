@@ -6,17 +6,18 @@
       </div>
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 link-secondary">Главная</a></li>
-          {% if current_user.is_authenticated %}
-           <li><a href="{{ url_for('post.create')}}" class="nav-link px-2">Добавить запись</a></li>
-           <li><a href="{{ url_for('admin.index')}}" class="nav-link px-2">Управление</a></li>
-          {% endif %}
+        {% if current_user.is_authenticated and current_user.role_id == 2 %}
+            {% if request.endpoint != 'user_routes.profile' %}  <!-- Проверяем, что не на странице профиля -->
+                <li><a href="{{ url_for('post.create') }}" class="nav-link px-2">Добавить запись</a></li>
+            {% endif %}
+        {% endif %}
       </ul>
 
     <div class="col-md-3 text-end">
           {% if current_user.is_authenticated %}
-           <span>Добро пожаловать, {{ current_user.name }}</span>
+           <span><b>{{ current_user.name }}</b></span>
            <a href="{{ url_for('user_routes.logout')}}" class="btn btn-warning">Выйти</a>
+           <a href="{{ url_for('user_routes.profile')}}" class="btn btn-warning">Личный кабинет</a>
           {% else %}
            <a href="{{ url_for('user_routes.login')}}" class="btn btn-warning">Войти</a>
            <a href="{{ url_for('user_routes.register')}}" class="btn btn-warning">Регистрация</a>

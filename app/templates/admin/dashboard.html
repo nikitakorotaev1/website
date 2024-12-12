@@ -1,9 +1,11 @@
 {% extends 'admin/master.html' %}
 
-{% block body %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
-{% for user in all_users %}
-{{ user.name }} {{ user.role_id}}<br>
-{% endfor %}
-    
+{% endblock %}
+
+{% block body %}
+123
 {% endblock %}

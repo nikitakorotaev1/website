@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_admin.theme import BootstrapTheme, Bootstrap4Theme
 from flask_login import login_required
 
 from .extensions import login_manager
@@ -9,7 +10,7 @@ from .config import Config
 # from .routes.user import user
 from .routes.post import post
 from .models.data import *
-from .models.admin import AnyPageView, DashboardView
+from .models.admin import *
 from .models.post import Post
 
 from flask_admin import Admin, BaseView, expose
@@ -33,20 +34,22 @@ def create_app(config_class=Config):
     login_manager.login_message = 'Требуется авторизация'
     login_manager.login_message_category = 'info'
 
+
    # Создание панели управления через flask-admin
+    admin = Admin(app, name='Панель Управления', index_view=DashboardView(), endpoint='admin')
 
+    admin.add_view(RoleView(Role, db.session, name='Роль'))
+    admin.add_view(UserView(User, db.session, name='Пользователи'))
+    admin.add_view(PersonnelView(Personnel, db.session, name='Персонал'))
+    admin.add_view(DepartmentView(Department, db.session, name='Отделы'))
+    admin.add_view(ProjectView(Project, db.session, name='Проекты'))
+    admin.add_view(FinanceView(Finance, db.session, name='Финансы'))
+    admin.add_view(ClientOrderView(ClientOrder, db.session, name='Заказы'))
+    admin.add_view(PaymentView(Payment, db.session, name='Платежи'))
 
-    admin = Admin(app, name='Панель Управления', template_mode='bootstrap3', index_view=DashboardView(), endpoint='admin')
-    admin.add_view(ModelView(Role, db.session, name='Роль'))
-    admin.add_view(ModelView(User, db.session, name='Пользователи'))
-    admin.add_view(ModelView(Personnel, db.session, name='Персонал'))
-    admin.add_view(ModelView(Department, db.session, name='Отделы'))
-    admin.add_view(ModelView(Project, db.session, name='Проекты'))
-    admin.add_view(ModelView(Finance, db.session, name='Финансы'))
-    admin.add_view(ModelView(ClientOrder, db.session, name='Заказы'))
-    admin.add_view(ModelView(Payment, db.session, name='Платежи'))
 
     admin.add_view(AnyPageView(name='Главная', endpoint='index'))
+
 
     with app.app_context():
         db.create_all()

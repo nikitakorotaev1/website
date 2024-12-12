@@ -2,7 +2,7 @@
 
 body {
     background: #212121;
-    color: #fff;
+    color: #ffffff;
 }
 
 .page {
@@ -17,12 +17,13 @@ body {
     background-color: transparent;
     inset: 0;
     backdrop-filter: blur(32px);
+    z-index: 1000;
     top: 0;
     padding: 10px;
 }
 
 .content {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 40px 20px;
     flex: 1 1 auto;
@@ -40,47 +41,97 @@ h1 {
     height: 48px;
 }
 
-/* Кнопка выпадающего списка */
-.dropbtn {
-  background-color: #3498DB;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
+.btn-warning {
+    color: #ffffff;
+    background-color: #0a6ebd;
+    border-color: #0a6ebd;;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
 }
 
-/* Кнопка выпадающего меню при наведении и фокусировке */
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
+
+.nav-link {
+    color: white;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+
 }
 
-/* Контейнер <div> - необходим для размещения выпадающего содержимого */
-.dropdown {
-  position: relative;
-  display: inline-block;
+.card {
+    background-color: #ffffff;
+    border-color: black;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+    color: black;
 }
 
-/* Выпадающее содержимое (скрыто по умолчанию) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+.btn-group {
+    border-color: black;
 }
 
-/* Ссылки внутри выпадающего списка */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+.btn-outline-secondary {
+    --bs-btn-color: #6c757d;
+    --bs-btn-border-color: #6c757d;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #2e98f6;
+    --bs-btn-hover-border-color: #2e98f6;
+    --bs-btn-focus-shadow-rgb: 108, 117, 125;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #6c757d;
+    --bs-btn-active-border-color: #6c757d;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #6c757d;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #6c757d;
+    --bs-gradient: none;
 }
 
-/* Изменение цвета выпадающих ссылок при наведении курсора */
-.dropdown-content a:hover {background-color: #ddd}
+.carousel-control-next-icon {
+    background-color: rgba(255, 255, 255, 0.5); /* Полупрозрачный белый фон для круга */
+    backdrop-filter: blur(10px); /* Размытие фона */
+    border-radius: 50%; /* Скругляем до круга */
+    padding: 10px; /* Отступы для создания эффекта круга */
+    width: 40px; /* Устанавливаем фиксированный размер для иконки */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-/* Показать выпадающее меню (используйте JS, чтобы добавить этот класс .dropdown-content содержимого, когда пользователь нажимает на кнопку выпадающего списка) */
-.show {display:block;}
+
+.carousel-control-prev-icon {
+    background-color: rgba(255, 255, 255, 0.5); /* Полупрозрачный белый фон для круга */
+    backdrop-filter: blur(10px); /* Размытие фона */
+    border-radius: 50%; /* Скругляем до круга */
+    padding: 10px; /* Отступы для создания эффекта круга */
+    width: 40px; /* Устанавливаем фиксированный размер для иконки */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.ms-3 {
+    margin-right: 15px;
+}
+
+#policy-details {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+
+.table {
+                width: 100%;
+            border-collapse: collapse;
+}
+
+th {
+    background-color: #858585 !important;
+    color: white !important;
+}
+
+td {
+    background-color: #ffffff !important;
+}

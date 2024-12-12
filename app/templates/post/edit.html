@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Обновление {{ post.title }} {% endblock %}
+
+{% block content %}
+<h1>{{ self.title() }}</h1>
+<form method="post" class="form-control">
+    <textarea name="title" placeholder="Описание" class="form-control" required>{{ post.title }}</textarea>
+    <textarea name="content" placeholder="Описание" class="form-control" rows="5" required>{{ post.content }}</textarea>
+    <textarea name="image_url" placeholder="Тут пока что ничего нет :)" class="form-control" >{{ post.image_url }}</textarea>
+    <textarea name="video_url" placeholder="Тут пока что ничего нет :)" class="form-control">{{ post.video_url }}</textarea>
+    <input value="Редактировать" type="submit" class="btn btn-success">
+    <a href="{{ url_for('post.delete_post', post_id=post.id) }}" class="btn btn-danger">Удалить</a>
+</form>
+{% endblock %}

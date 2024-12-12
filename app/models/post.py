@@ -8,5 +8,6 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=True)  # Для текстового содержимого поста
     created_at = db.Column(db.DateTime, default=datetime.now())
     image_url = db.Column(db.String(2048), nullable=True)
+    image_url2 = db.Column(db.String(2048), nullable=True)
     video_url = db.Column(db.String(2048), nullable=True)
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=True)

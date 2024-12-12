@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/libs/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}">
+
     {% block style %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
 
 <body>
-
 <header class="header">{% include 'main/_header.html' %}</header>
+{% block header %}{% endblock %}
+
 <div class="page">
      <main class="content">
          {% include '_flash.html'%}
-         <h1>{{ self.title() }}</h1>
          {% block content %}{% endblock %}
      </main>
      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">{% include 'main/_footer.html' %}</footer>

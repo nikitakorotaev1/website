@@ -1,6 +1,4 @@
-from email.policy import default
-
-from click import Tuple
+from enum import unique
 
 from ..extensions import db, login_manager
 from datetime import datetime
@@ -22,11 +20,13 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(50), nullable=False, unique=True)
     password = db.Column(db.String(200), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
-    phone_number = db.Column(db.String(50), nullable=True)
+    phone_number = db.Column(db.String(50), nullable=True, unique=True)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False, default=1)
+    personnel_id = db.Column(db.Integer, db.ForeignKey('personnel.id'), nullable=True)
 
+    personnel = db.relationship('Personnel', backref=db.backref('associated_user', uselist=False))
     role = db.relationship('Role', backref=db.backref('users', lazy=True))
-    projects = db.relationship('Project', backref='client', lazy=True)
+    projects = db.relationship('Project', back_populates='client', lazy=True)
     client_orders = db.relationship('ClientOrder', backref='client', lazy=True)
 
 
@@ -42,6 +42,8 @@ class Personnel(db.Model):
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable=True)
     current_salary = db.Column(db.Numeric(10, 2), nullable=True)
 
+    department = db.relationship('Department', backref=db.backref('employees', lazy=True), foreign_keys=[department_id])
+
 
 
 class Department(db.Model):
@@ -50,6 +52,8 @@ class Department(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     department_name = db.Column(db.String(100), nullable=False)
     manager_id = db.Column(db.Integer, db.ForeignKey('personnel.id'), nullable=True)
+
+    manager = db.relationship('Personnel', backref=db.backref('managed_department', uselist=False), foreign_keys=[manager_id])
 
 
 
@@ -63,6 +67,11 @@ class Project(db.Model):
     end_date = db.Column(db.Date)
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'))
     client_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    manager_id = db.Column(db.Integer, db.ForeignKey('personnel.id'), nullable=True)
+
+    department = db.relationship('Department', backref=db.backref('projects', lazy=True))
+    client = db.relationship('User', back_populates='projects')
+    manager = db.relationship('Personnel', backref=db.backref('managed_projects', lazy=True), foreign_keys=[manager_id])
 
 
 
@@ -85,7 +94,9 @@ class ClientOrder(db.Model):
     order_date = db.Column(db.Date, nullable=False)
     status = db.Column(db.String(50), nullable=True)
     create_date = db.Column(db.DateTime, default=datetime.now, nullable=False)
-    client_phone = db.Column(db.String(50), nullable=True)  # Новое поле для хранения телефона клиента
+    client_phone = db.Column(db.String(60), nullable=True)
+
+    project = db.relationship('Project', backref='orders')
 
 
 
@@ -97,5 +108,7 @@ class Payment(db.Model):
     payment_amount = db.Column(db.Numeric(15, 2), nullable=False)
     payment_date = db.Column(db.Date, nullable=False)
     payment_status = db.Column(db.String(50), nullable=True)
+
+
 
 
